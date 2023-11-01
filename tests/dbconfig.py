@@ -10,6 +10,7 @@ rootdir = pathlib.Path(__file__)
 datadir = rootdir.parent / "data"
 dbfile = datadir / "test.db"
 
+databases = os.environ.get("DATABASES", "sqlite").split(",")
 
 def open_db_uri(dialect):
     if dialect == 'sqlite':
@@ -23,7 +24,7 @@ def open_db_uri(dialect):
         return 'postgresql:///edutaptest'
 
 
-@pytest.fixture(scope='function', params=['sqlite', 'postgresql'])
+@pytest.fixture(scope='function', params=databases)
 # def db_engine(request):
 def db_engine(request):
     print(f"request.param: {request.param}")

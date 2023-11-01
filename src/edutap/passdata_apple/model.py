@@ -13,8 +13,6 @@ class PassTemplate(sqlmodel.SQLModel, template.PassTemplateBase, table=True):
     attachments: dict[str, bytes] = sqlmodel.Field(default_factory=dict, sa_column=sqlmodel.Column(sqlmodel.JSON)) # TODO: define attachment structure model for sqlalchemy
     timestamp: datetime = sqlmodel.Field(default_factory=datetime.now)
 
-    
-
 
 def init_model(engine):
     sqlmodel.SQLModel.metadata.create_all(engine)
