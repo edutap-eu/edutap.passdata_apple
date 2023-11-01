@@ -297,6 +297,7 @@ install: $(INSTALL_TARGET)
 
 .PHONY: run
 run: $(RUN_TARGET)
+	./venv/bin/uvicorn --reload --host 0.0.0.0 --port 10000 edutap.passdata_apple.main:app
 
 .PHONY: deploy
 deploy: $(DEPLOY_TARGETS)
