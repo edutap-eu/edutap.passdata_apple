@@ -10,7 +10,7 @@ rootdir = pathlib.Path(__file__)
 datadir = rootdir.parent / "data"
 dbfile = datadir / "test.db"
 
-databases = os.environ.get("DATABASES", "sqlite").split(",")
+databases = os.environ.get("TEST_DATABASES", "sqlite").split(",")
 
 def open_db_uri(dialect):
     if dialect == 'sqlite':
