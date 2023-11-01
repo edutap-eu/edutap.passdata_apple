@@ -1,0 +1,9 @@
+# This directory must only contain some self generated private key
+# and certificate, not the ones provided by Apple.
+
+*.cer 
+*.pem 
+*.key 
+
+!.gitignore
+!README.txt

@@ -4,8 +4,12 @@ name = "edutap.passdata_apple"
 version = "0.1.0"
 
 dependencies = [
+    "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git",
+    # "sqlalchemy < 2.0.0",
+    "pydantic != 2.4.0",
     "fastapi",
     "uvicorn",
     "python-multipart",
-    "edutap.models_apple"
+    "edutap.models_apple",
+    "psycopg2",
 ]
