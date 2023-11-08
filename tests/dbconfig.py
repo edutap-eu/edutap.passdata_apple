@@ -6,11 +6,23 @@ import sqlmodel
 
 from edutap.passdata_apple.model import init_model
 
+vardir = pathlib.Path("var")
+certsdir = vardir / "certs"
+keyfile = certsdir / "private.key"
+wwdrfile = certsdir / "wwdr_certificate.pem"
+
 rootdir = pathlib.Path(__file__)
 datadir = rootdir.parent / "data"
 dbfile = datadir / "test.db"
+certfile = certsdir / "certificate.pem"
+
+passes = datadir / "passes"
+
 
 databases = os.environ.get("TEST_DATABASES", "sqlite").split(",")
+passtype_identifier = os.environ.get("APPLE_PASSTYPE_IDENTIFIER")
+team_identifier = os.environ.get("APPLE_TEAM_IDENTIFIER")
+
 
 def open_db_uri(dialect):
     if dialect == 'sqlite':
@@ -25,7 +37,6 @@ def open_db_uri(dialect):
 
 
 @pytest.fixture(scope='function', params=databases)
-# def db_engine(request):
 def db_engine(request):
     print(f"request.param: {request.param}")
     url = open_db_uri(request.param)
