@@ -9,6 +9,8 @@ from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlmodel import Session
 
+from edutap.passdata_apple.model import PassTemplate
+
 from .common import app, engine, get_session
 
 # auth stuff
@@ -96,16 +98,17 @@ def fileupload(api_key: str = Depends(oauth2_scheme), name: str = "", passfile: 
 
 
 @app.post("/upload_pass_template")
-def upload_pass_template(
+async def upload_pass_template(
     api_key = Depends(oauth2_scheme),
     template_identifier: str="", 
     pkpass: UploadFile = File(...),
-    
+    db_session: Session = Depends(get_session)
 ) -> str:
     """
     upload a pkpass file that contains a template
     """
-    
+    data = await pkpass.read()
+    PassTemplate.from_passfile(data, template_identifier=template_identifier, backoffice_identifier="test")
     return "ok"
     
     

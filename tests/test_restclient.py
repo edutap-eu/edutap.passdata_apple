@@ -52,7 +52,7 @@ async def test_fileupload(async_webclient):
         response = await async_webclient.post(
             "/upload_pass_template",
             headers=headers,
-            params=dict(template_identifier="xxx"),
+            params=dict(template_identifier="t1"),
             files=dict(pkpass=storecard),
         )
         assert response.status_code == 200
