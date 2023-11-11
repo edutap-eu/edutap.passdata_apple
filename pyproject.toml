@@ -4,7 +4,7 @@ name = "edutap.passdata_apple"
 version = "0.1.0"
 
 dependencies = [
-    "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git",
+    "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git", # we use this PR until fastapi officially supports pydantic2
     # "sqlalchemy < 2.0.0",
     "pydantic != 2.4.0",
     "fastapi",
@@ -12,4 +12,16 @@ dependencies = [
     "python-multipart",
     "edutap.models_apple",
     "psycopg2",
+
+    "passlib[bcrypt]",
+    "python-jose[cryptography]",
+
+    "fastapi-chameleon",
+]
+
+[project.optional-dependencies]
+test = [
+    "httpx",
+    "pytest",
+    "pytest-asyncio",
 ]

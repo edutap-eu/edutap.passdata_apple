@@ -15,11 +15,14 @@
                 "--host",
                 "0.0.0.0",
                 "--port",
-                "10000"
+                "4780"
 
             ],
             "jinja": true,
-            "justMyCode": true
+            "justMyCode": true,
+            "env": {
+                "VAR_DIR1": "${workspaceFolder}/var",
+            }
         }
     ]
 }
