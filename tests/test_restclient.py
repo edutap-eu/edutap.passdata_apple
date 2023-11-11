@@ -4,8 +4,9 @@ import httpx
 import pytest_asyncio
 
 from edutap.passdata_apple.main import app
-from edutap.passdata_apple.common import VAR_DIR, DATA_DIR, CERTS_DIR, BASE_DIR
+from edutap.passdata_apple.common import VAR_DIR, DATA_DIR, CERTS_DIR, BASE_DIR, engine
 import dbconfig
+from edutap.passdata_apple.model import init_model
 
 PORT = 4780
 HOST = "localhost"
@@ -14,6 +15,8 @@ PASSES_DIR = DATA_DIR / "passes"
 
 @pytest_asyncio.fixture
 async def async_webclient() -> Generator:
+    # have to call init_model here because via httpx.AsyncClient, the lifecycle of the app is not called
+    init_model(engine)
     async with httpx.AsyncClient(app=app, base_url="http://0.0.0.0") as client:
         yield client
 

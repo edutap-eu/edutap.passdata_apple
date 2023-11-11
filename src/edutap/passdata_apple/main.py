@@ -3,7 +3,7 @@ import os
 import pathlib
 from typing import Annotated, Any
 import uuid
-from fastapi import FastAPI, File, HTTPException, Response, UploadFile, Depends,status
+from fastapi import FastAPI, File, HTTPException, Response, UploadFile, Depends, status
 from fastapi.responses import FileResponse, StreamingResponse
 
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -17,6 +17,8 @@ from .common import app, engine, get_session
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+
+from edutap.passdata_apple.main import engine, get_session
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "secret")
 ALGORITHM = "HS256"
@@ -108,7 +110,9 @@ async def upload_pass_template(
     upload a pkpass file that contains a template
     """
     data = await pkpass.read()
-    PassTemplate.from_passfile(data, template_identifier=template_identifier, backoffice_identifier="test")
+    template = PassTemplate.from_passfile(data, template_identifier=template_identifier, backoffice_identifier="test")
+    db_session.add(template)
+    db_session.commit()
     return "ok"
     
     
